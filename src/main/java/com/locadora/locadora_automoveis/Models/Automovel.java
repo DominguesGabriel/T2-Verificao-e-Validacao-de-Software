@@ -36,15 +36,21 @@ public class Automovel {
         return disponivel;
     }
 
-    public void alocar(boolean comAcidente) {
+    public void alocar() {
+        disponivel = false;
+    }
+
+    public boolean devolver() {
+        return devolver(false);
+    }
+
+    public boolean devolver(boolean comAcidente) {
         if (comAcidente || (Constants.ANO_ATUAL - ano) > 5) {
             disponivel = false;
         } else {
             disponivel = true;
         }
-    }
 
-    public void devolver() {
-        disponivel = true;
+        return disponivel;
     }
 }
