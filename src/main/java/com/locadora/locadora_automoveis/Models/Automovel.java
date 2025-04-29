@@ -1,7 +1,13 @@
 package com.locadora.locadora_automoveis.Models;
 
 import com.locadora.locadora_automoveis.Tools.Constants;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class Automovel {
     private int id;
     private String placa;
@@ -14,26 +20,6 @@ public class Automovel {
         this.placa = placa;
         this.ano = ano;
         this.valorDiaria = valorDiaria;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public double getValorDiaria() {
-        return valorDiaria;
-    }
-
-    public boolean isDisponivel() {
-        return disponivel;
     }
 
     public void alocar() {
