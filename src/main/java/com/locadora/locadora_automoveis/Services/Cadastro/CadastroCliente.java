@@ -15,7 +15,7 @@ public class CadastroCliente {
         this.nextId = 1; // ID inicial
     }
 
-    // Singleton para garantir que haja apenas uma instância de CadastroCliente
+    // Singleton
     public static CadastroCliente getInstance() {
         if (instance == null) {
             instance = new CadastroCliente();
