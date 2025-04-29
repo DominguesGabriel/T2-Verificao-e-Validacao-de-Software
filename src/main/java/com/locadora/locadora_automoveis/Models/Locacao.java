@@ -1,6 +1,4 @@
 package com.locadora.locadora_automoveis.Models;
-
-import java.time.temporal.ChronoUnit;
 public class Locacao {
     private int id;
     private int dias;
@@ -15,8 +13,11 @@ public class Locacao {
     }
 
     public double calcularValor() {
-        
-        return this.dias * this.automovel.getValorDiaria();
+        double valor = this.dias * this.automovel.getValorDiaria();
+        if (this.dias > 7) {
+            valor *= 0.95; // 5% de desconto para locações acima de 7 dias
+        }
+        return valor;
     }
 
     // Getters e Setters
