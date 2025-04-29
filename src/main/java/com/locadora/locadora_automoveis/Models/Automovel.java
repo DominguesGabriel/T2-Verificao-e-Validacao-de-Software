@@ -1,5 +1,7 @@
 package com.locadora.locadora_automoveis.Models;
 
+import com.locadora.locadora_automoveis.Tools.Constants;
+
 public class Automovel {
     private int id;
     private String placa;
@@ -35,7 +37,7 @@ public class Automovel {
     }
 
     public void alocar(boolean comAcidente) {
-        if (comAcidente || (2023 - ano) > 5) {
+        if (comAcidente || (Constants.ANO_ATUAL - ano) > 5) {
             disponivel = false;
         } else {
             disponivel = true;
