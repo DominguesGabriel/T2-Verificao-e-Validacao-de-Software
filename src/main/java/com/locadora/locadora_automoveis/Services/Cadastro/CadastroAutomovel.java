@@ -1,10 +1,12 @@
 package com.locadora.locadora_automoveis.Services.Cadastro;
 
 import com.locadora.locadora_automoveis.Models.Automovel;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CadastroAutomovel {
     private List<Automovel> automoveis;
     private int nextId;
