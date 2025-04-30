@@ -11,10 +11,11 @@ public class Locacao {
     private Cliente cliente;
     private Automovel automovel;
 
+
     public double calcularValor() {
         double valor = this.dias * this.automovel.getValorDiaria();
         if (this.dias > 7) {
-            valor *= 0.95; // 5% de desconto para locações acima de 7 dias
+            valor *= 0.95;
         }
         return valor;
     }
