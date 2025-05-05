@@ -45,4 +45,13 @@ public class CadastroAutomovel {
     public boolean apagarAutomovel(int id) {
         return automoveis.removeIf(automovel -> automovel.getId() == id);
     }
+
+    public boolean isDisponivelPorId(int id){
+        for(Automovel automovel: automoveis){
+            if(automovel.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
 }
