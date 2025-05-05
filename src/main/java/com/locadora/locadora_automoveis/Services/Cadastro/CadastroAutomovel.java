@@ -31,6 +31,13 @@ public class CadastroAutomovel {
         return automovel;
     }
 
+    public Automovel getAutomovel(int id) {
+        return automoveis.stream()
+                .filter(automovel -> automovel.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Automovel> listarAutomoveis() {
         return new ArrayList<>(automoveis); // Retorna uma cópia da lista para evitar modificações externas
     }

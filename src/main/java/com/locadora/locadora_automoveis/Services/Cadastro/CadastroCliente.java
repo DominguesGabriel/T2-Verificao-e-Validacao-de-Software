@@ -32,6 +32,13 @@ public class CadastroCliente {
         return cliente;
     }
 
+    public Cliente getCliente(int id) {
+        return clientes.stream()
+                       .filter(cliente -> cliente.getId() == id)
+                       .findFirst()
+                       .orElse(null);
+    }
+
     public List<Cliente> listarClientes() {
         return new ArrayList<>(clientes); // Retorna uma cópia da lista para evitar modificações externas
     }

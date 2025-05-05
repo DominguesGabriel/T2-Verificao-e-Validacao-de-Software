@@ -26,6 +26,13 @@ public class CadastroLocacao {
         return instance;
     }
 
+    public Locacao getLocacao(int id) {
+        return locacoes.stream()
+                       .filter(locacoes -> locacoes.getId() == id)
+                       .findFirst()
+                       .orElse(null);
+    }
+
     public Locacao cadastrarLocacao(int dias, Cliente cliente, Automovel automovel) {
         if (!automovel.isDisponivel()) {
             throw new IllegalStateException("Automóvel não está disponível para locação");

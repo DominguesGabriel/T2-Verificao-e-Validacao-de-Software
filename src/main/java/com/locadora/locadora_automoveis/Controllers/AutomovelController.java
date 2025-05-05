@@ -16,5 +16,4 @@ public class AutomovelController {
     private List<Automovel> getAllAutomoveis(){
         return CadastroAutomovel.getInstance().listarAutomoveis();
     }
-
 }
