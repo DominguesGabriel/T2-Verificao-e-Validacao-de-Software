@@ -1,20 +1,20 @@
 package com.locadora.locadora_automoveis.Controllers;
 
-import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.locadora.locadora_automoveis.Models.Automovel;
+import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
+
 @RestController
-@RequestMapping("/automovel")
+@RequestMapping("/acmerent")
 public class AutomovelController {
-
-    private CadastroAutomovel cadastroAutomovel;
-
-    @GetMapping()
-    private void getAllAutomoveis(){
-        //EXEMPLO
-        cadastroAutomovel.listarAutomoveis();
+    @GetMapping("/listaautomoveis")
+    private List<Automovel> getAllAutomoveis(){
+        return CadastroAutomovel.getInstance().listarAutomoveis();
     }
 
 }
