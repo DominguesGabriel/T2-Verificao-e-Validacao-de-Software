@@ -29,6 +29,14 @@ public class CadastroLocacao {
         return locacao;
     }
 
+    public double calcularValor(Locacao locacao) {
+        double valor = locacao.getDias() * locacao.getAutomovel().getValorDiaria();
+        if (locacao.getDias() > 7) {
+            valor *= 0.95;
+        }
+        return valor;
+    }
+
     public List<Locacao> listarLocacoes() {
         return new ArrayList<>(locacoes);
     }
@@ -46,5 +54,6 @@ public class CadastroLocacao {
             }
         }
         return false;
+
     }
 }
