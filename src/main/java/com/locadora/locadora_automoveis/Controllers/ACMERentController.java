@@ -6,9 +6,14 @@ import com.locadora.locadora_automoveis.Models.Locacao;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroCliente;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroLocacao;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -40,13 +45,29 @@ public class ACMERentController {
         return CadastroAutomovel.getInstance().isDisponivelPorId(idAutomovel);
     }
 
+    @AllArgsConstructor
+    private class LocacaoRequest {
+        private int idLocacao;
+        private int idAutomovel;
+        private int idCliente;
+        private String dataInicial;
+
+        public Locacao toLocacao() {
+            CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
+            CadastroCliente cadastroCliente = CadastroCliente.getInstance();
+
+            Automovel automovel = cadastroAutomovel.getAutomovel(idAutomovel);
+            Cliente cliente = cadastroCliente.getCliente(idCliente);
+
+            return new Locacao(idLocacao, Date.from(Instant.parse(dataInicial)), null, cliente, automovel);
+        }
+    }
+
     @PostMapping("/atendimento/cadlocacao")
-    private boolean cadastraLocacao(@RequestBody Locacao locacao) { //acho q n faz sentido receber locacao pq n tem como representar Date em json
+    private boolean cadastraLocacao(@RequestBody LocacaoRequest locacaoRequest) { //acho q n faz sentido receber locacao pq n tem como representar Date em json
         CadastroLocacao cadastroLocacao = CadastroLocacao.getInstance();
 
-        cadastroLocacao.cadastrarLocacao(locacao);
-
-        return false;
+        return cadastroLocacao.cadastrarLocacao(locacaoRequest.toLocacao());
     }
 
     @PostMapping("/atendimento/atualizaautomovel/{id}/estado/{status}")

@@ -47,10 +47,8 @@ public class CadastroLocacao {
         return locacao;
     }
 
-    public Locacao cadastrarLocacao(Locacao locacao) {
-        locacoes.add(locacao);
-
-        return locacao;
+    public boolean cadastrarLocacao(Locacao locacao) {
+        return locacoes.add(locacao);
     }
 
     public double calcularValor(Locacao locacao) {
