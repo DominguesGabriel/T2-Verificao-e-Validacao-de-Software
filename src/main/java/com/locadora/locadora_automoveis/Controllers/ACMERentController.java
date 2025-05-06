@@ -48,13 +48,19 @@ public class ACMERentController {
         return false;
     }
 
-    @PostMapping("/acmerent/atendimento/atualizaautomovel")
-    private boolean atualizaAutomvel(){
-        // Precisa fazer a implementação e adicionar o @ResponseBody e os @RequestParam
-        return false;
+    @PostMapping("/atendimento/atualizaautomovel/{id}/estado/{status}")
+    private Automovel atualizaAutomovel(@PathVariable int id, @PathVariable boolean status) {
+        CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
+        Automovel automovel = cadastroAutomovel.getAutomovel(id);
+
+        if (automovel == null) return null; // Retorna null se o automóvel não for encontrado
+        
+        automovel.setDisponivel(status);
+
+        return automovel;
     }
 
-    @PostMapping("/acmerent/atendimento/finalizalocacao")
+    @PostMapping("/atendimento/finalizalocacao")
     private boolean finalizaLocacao(){
         // Precisa fazer a implementação e adicionar o @ResponseBody
         return false;
