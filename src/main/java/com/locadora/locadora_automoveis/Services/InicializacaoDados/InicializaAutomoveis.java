@@ -1,7 +1,6 @@
 package com.locadora.locadora_automoveis.Services.InicializacaoDados;
 
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

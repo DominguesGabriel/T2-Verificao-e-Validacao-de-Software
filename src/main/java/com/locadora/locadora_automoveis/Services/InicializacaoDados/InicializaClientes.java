@@ -1,11 +1,9 @@
 package com.locadora.locadora_automoveis.Services.InicializacaoDados;
 
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroCliente;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Component
 public class InicializaClientes implements CommandLineRunner {
