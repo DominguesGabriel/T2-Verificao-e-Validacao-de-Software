@@ -64,7 +64,7 @@ public class ACMERentController {
     }
 
     @PostMapping("/atendimento/cadlocacao")
-    private boolean cadastraLocacao(@RequestBody LocacaoRequest locacaoRequest) { //acho q n faz sentido receber locacao pq n tem como representar Date em json
+    private boolean cadastraLocacao(@RequestBody LocacaoRequest locacaoRequest) {
         CadastroLocacao cadastroLocacao = CadastroLocacao.getInstance();
 
         return cadastroLocacao.cadastrarLocacao(locacaoRequest.toLocacao());
