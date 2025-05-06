@@ -71,6 +71,6 @@ public class ACMERentController {
 
     @PostMapping("/atendimento/finalizalocacao")
     private boolean finalizaLocacao(@RequestBody int id){
-        return cadastroLocacao.finalizarLocacao(id);
+        return cadastroLocacao.finalizaLocacao(id);
     }
 }

@@ -3,9 +3,11 @@ package com.locadora.locadora_automoveis.Services.InicializacaoDados;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
+@Order(1)
 public class InicializaAutomoveis implements CommandLineRunner {
 
     @Autowired
@@ -23,5 +25,7 @@ public class InicializaAutomoveis implements CommandLineRunner {
         cadastroAutomovel.cadastrarAutomovel("VWX9012", 2019, 145.0);
         cadastroAutomovel.cadastrarAutomovel("YZA3456", 2021, 165.0);
         cadastroAutomovel.cadastrarAutomovel("BCD7890", 2023, 180.0);
+   
+        System.out.println("cadastro de automoveis inicializado com sucesso!");
     }
 }
