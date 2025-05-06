@@ -13,6 +13,7 @@ public class Locacao {
     private Date endDate;
     private Cliente cliente;
     private Automovel automovel;
+    private double valorTotal;
 
     public int getDias() {
         if (endDate == null) {
