@@ -45,11 +45,7 @@ public class CadastroLocacao {
                 return false; // Locação já existe
             }
         }
-
-        // if (!locacao.getAutomovel().isDisponivel()) {
-        //     throw new IllegalStateException("Automóvel não está disponível para locação");
-        // }
-
+        
         locacao.getAutomovel().setDisponivel(false);
 
         return locacoes.add(locacao);
