@@ -1,12 +1,19 @@
 package com.locadora.locadora_automoveis.Services.InicializacaoDados;
 
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-public class InicializaAutomoveis {
+@Component
+public class InicializaAutomoveis implements CommandLineRunner {
 
-    public static void inicializar() {
-        CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
+    @Autowired
+    private CadastroAutomovel cadastroAutomovel;
 
+    @Override
+    public void run(String... args) throws Exception {
         cadastroAutomovel.cadastrarAutomovel("ABC1234", 2020, 150.0);
         cadastroAutomovel.cadastrarAutomovel("DEF5678", 2019, 140.0);
         cadastroAutomovel.cadastrarAutomovel("GHI9012", 2021, 160.0);

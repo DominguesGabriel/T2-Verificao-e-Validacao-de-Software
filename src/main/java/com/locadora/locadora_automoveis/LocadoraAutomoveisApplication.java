@@ -13,17 +13,10 @@ import com.locadora.locadora_automoveis.Services.InicializacaoDados.InicializaCl
 
 @SpringBootApplication
 public class LocadoraAutomoveisApplication {
-	CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
 
 	public static void main(String[] args) {
-		InicializaAutomoveis.inicializar();
-		InicializaClientes.inicializar();
+
 
 		SpringApplication.run(LocadoraAutomoveisApplication.class, args);
-	}
-
-	@GetMapping("/")
-	public List<Automovel> listaAutomoveis() {
-		return cadastroAutomovel.listarAutomoveis();
 	}
 }
