@@ -41,7 +41,15 @@ public class CadastroLocacao {
 
         automovel.setDisponivel(false);
         Locacao locacao = new Locacao(nextId++, dataInicial, null, cliente, automovel);
+        
+        cadastrarLocacao(locacao);
+
+        return locacao;
+    }
+
+    public Locacao cadastrarLocacao(Locacao locacao) {
         locacoes.add(locacao);
+
         return locacao;
     }
 
@@ -57,15 +65,17 @@ public class CadastroLocacao {
         return new ArrayList<>(locacoes);
     }
 
-    public void finalizaLocacao(int id, Date dataFinal) {
+    public boolean finalizaLocacao(int id, Date dataFinal) {
         for (Locacao locacao : locacoes) {
             if (locacao.getId() != id) continue;
 
             locacao.setEndDate(dataFinal);
             locacao.getAutomovel().setDisponivel(true);
 
-            return;
+            return true;
         }
+
+        return false;
     }
 
     public void finalizaLocacao(int id) {
