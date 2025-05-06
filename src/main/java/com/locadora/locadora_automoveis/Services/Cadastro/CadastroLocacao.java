@@ -40,6 +40,18 @@ public class CadastroLocacao {
     }
 
     public boolean cadastrarLocacao(Locacao locacao) {
+        for (Locacao locacaoExistente : locacoes) {
+            if (locacaoExistente.getId() == locacao.getId()) {
+                throw new IllegalArgumentException("Locação com ID " + locacao.getId() + " já existe.");
+            }
+        }
+
+        if (!locacao.getAutomovel().isDisponivel()) {
+            throw new IllegalStateException("Automóvel não está disponível para locação");
+        }
+
+        locacao.getAutomovel().setDisponivel(false);
+
         return locacoes.add(locacao);
     }
 
@@ -80,7 +92,7 @@ public class CadastroLocacao {
         for (Locacao locacao : locacoes) {
             if (locacao.getId() == id) {
                 locacao.getAutomovel().setDisponivel(true);
-                locacoes.remove(locacao);
+                
                 return true;
             }
         }
