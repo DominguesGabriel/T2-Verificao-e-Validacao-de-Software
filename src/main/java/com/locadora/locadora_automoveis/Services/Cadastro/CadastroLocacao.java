@@ -32,7 +32,7 @@ public class CadastroLocacao {
         }
 
         automovel.setDisponivel(false);
-        Locacao locacao = new Locacao(nextId++, dataInicial, null, cliente, automovel, -1);
+        Locacao locacao = new Locacao(nextId++, dataInicial, null, cliente, automovel, 0);
         locacao.setValorTotal(calcularValor(locacao));
         cadastrarLocacao(locacao);
 
@@ -47,6 +47,7 @@ public class CadastroLocacao {
         }
 
         locacao.getAutomovel().setDisponivel(false);
+        locacao.setValorTotal(calcularValor(locacao));
 
         return locacoes.add(locacao);
     }
@@ -69,7 +70,7 @@ public class CadastroLocacao {
 
             locacao.setEndDate(dataFinal);
             locacao.getAutomovel().setDisponivel(true);
-            locacao.setValorTotal(calcularValor(locacao));
+            
 
             return true;
         }

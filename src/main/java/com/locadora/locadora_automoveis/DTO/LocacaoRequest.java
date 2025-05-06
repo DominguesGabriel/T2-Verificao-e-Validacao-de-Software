@@ -22,6 +22,6 @@ public class LocacaoRequest {
         Automovel automovel = cadastroAutomovel.getAutomovel(idAutomovel);
         Cliente cliente = cadastroCliente.getCliente(idCliente);
 
-        return new Locacao(idLocacao, Date.from(Instant.parse(dataInicial)), null, cliente, automovel, -1);
+        return new Locacao(idLocacao, Date.from(Instant.parse(dataInicial)), null, cliente, automovel, 0);
     }
 }
