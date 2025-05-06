@@ -43,8 +43,11 @@ public class ACMERentController {
     //APARTIR DAQUI NÂO ESTÀ TOTALMENTE DESENVOLVIDO
 
     @PostMapping("/atendimento/cadlocacao")
-    private boolean atendimentoCadastro(){
-        // Precisa fazer a implementação e adicionar o @ResponseBody
+    private boolean cadastraLocacao(@RequestBody Locacao locacao) { //acho q n faz sentido receber locacao pq n tem como representar Date em json
+        CadastroLocacao cadastroLocacao = CadastroLocacao.getInstance();
+
+        cadastroLocacao.cadastrarLocacao(locacao);
+
         return false;
     }
 
@@ -61,8 +64,7 @@ public class ACMERentController {
     }
 
     @PostMapping("/atendimento/finalizalocacao")
-    private boolean finalizaLocacao(){
-        // Precisa fazer a implementação e adicionar o @ResponseBody
-        return false;
+    private boolean finalizaLocacao(@RequestBody int id){
+        return CadastroLocacao.getInstance().finalizarLocacao(id);
     }
 }
