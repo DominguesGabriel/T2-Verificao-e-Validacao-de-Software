@@ -7,13 +7,10 @@ import com.locadora.locadora_automoveis.Models.Locacao;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroCliente;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroLocacao;
 
-import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
