@@ -6,6 +6,7 @@ import com.locadora.locadora_automoveis.Models.Automovel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,13 +34,13 @@ public class CadastroLocacao {
                        .orElse(null);
     }
 
-    public Locacao cadastrarLocacao(int dias, Cliente cliente, Automovel automovel) {
+    public Locacao cadastrarLocacao(Date dataInicial, Cliente cliente, Automovel automovel) {
         if (!automovel.isDisponivel()) {
             throw new IllegalStateException("Automóvel não está disponível para locação");
         }
 
         automovel.setDisponivel(false);
-        Locacao locacao = new Locacao(nextId++, dias, cliente, automovel);
+        Locacao locacao = new Locacao(nextId++, dataInicial, null, cliente, automovel);
         locacoes.add(locacao);
         return locacao;
     }
@@ -54,6 +55,21 @@ public class CadastroLocacao {
 
     public List<Locacao> listarLocacoes() {
         return new ArrayList<>(locacoes);
+    }
+
+    public void finalizaLocacao(int id, Date dataFinal) {
+        for (Locacao locacao : locacoes) {
+            if (locacao.getId() != id) continue;
+
+            locacao.setEndDate(dataFinal);
+            locacao.getAutomovel().setDisponivel(true);
+
+            return;
+        }
+    }
+
+    public void finalizaLocacao(int id) {
+        finalizaLocacao(id, new Date());
     }
 
     public boolean apagarLocacao(int id) {
