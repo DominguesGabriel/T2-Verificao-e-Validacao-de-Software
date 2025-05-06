@@ -46,7 +46,7 @@ public class ACMERentController {
     }
 
     @AllArgsConstructor
-    private class LocacaoRequest {
+    private static class LocacaoRequest {
         private int idLocacao;
         private int idAutomovel;
         private int idCliente;
