@@ -40,8 +40,6 @@ public class ACMERentController {
         return CadastroAutomovel.getInstance().isDisponivelPorId(idAutomovel);
     }
 
-    //APARTIR DAQUI NÂO ESTÀ TOTALMENTE DESENVOLVIDO
-
     @PostMapping("/atendimento/cadlocacao")
     private boolean cadastraLocacao(@RequestBody Locacao locacao) { //acho q n faz sentido receber locacao pq n tem como representar Date em json
         CadastroLocacao cadastroLocacao = CadastroLocacao.getInstance();
