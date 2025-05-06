@@ -13,18 +13,10 @@ import java.util.List;
 public class CadastroLocacao {
     private List<Locacao> locacoes;
     private int nextId;
-    private static CadastroLocacao instance;
 
     private CadastroLocacao() {
         this.locacoes = new ArrayList<>();
         this.nextId = 1; // ID inicial
-    }
-
-    public static CadastroLocacao getInstance() {
-        if (instance == null) {
-            instance = new CadastroLocacao();
-        }
-        return instance;
     }
 
     public Locacao getLocacao(int id) {

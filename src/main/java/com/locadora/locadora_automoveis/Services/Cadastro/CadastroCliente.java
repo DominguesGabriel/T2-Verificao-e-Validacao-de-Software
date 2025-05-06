@@ -11,19 +11,10 @@ import java.util.List;
 public class CadastroCliente {
     private List<Cliente> clientes;
     private int nextId;
-    private static CadastroCliente instance;
 
     private CadastroCliente() {
         this.clientes = new ArrayList<>();
         this.nextId = 1; // ID inicial
-    }
-
-    // Singleton
-    public static CadastroCliente getInstance() {
-        if (instance == null) {
-            instance = new CadastroCliente();
-        }
-        return instance;
     }
 
     public Cliente cadastrarCliente(String cpf, String nome, String telefone) {

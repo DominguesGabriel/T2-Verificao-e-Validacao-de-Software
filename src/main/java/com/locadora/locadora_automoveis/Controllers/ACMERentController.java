@@ -1,5 +1,6 @@
 package com.locadora.locadora_automoveis.Controllers;
 
+import com.locadora.locadora_automoveis.DTO.LocacaoRequest;
 import com.locadora.locadora_automoveis.Models.Automovel;
 import com.locadora.locadora_automoveis.Models.Cliente;
 import com.locadora.locadora_automoveis.Models.Locacao;
@@ -14,65 +15,52 @@ import com.locadora.locadora_automoveis.Services.Cadastro.CadastroLocacao;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/acmerent")
 public class ACMERentController {
 
+    @Autowired
+    private CadastroCliente cadastroCliente;
+    @Autowired
+    private CadastroAutomovel cadastroAutomovel;
+    @Autowired
+    private CadastroLocacao cadastroLocacao;
+
     @GetMapping("/listaautomoveis")
     private List<Automovel> getAllAutomoveis(){
-        return CadastroAutomovel.getInstance().listarAutomoveis();
+        return cadastroAutomovel.listarAutomoveis();
     }
 
     @GetMapping("/listaclientes")
     private List<Cliente> getAllClientes(){
-        return CadastroCliente.getInstance().listarClientes();
+        return cadastroCliente.listarClientes();
     }
 
     @GetMapping("/listalocacoes")
     private List<Locacao> getAllLocacoes() {
-        return CadastroLocacao.getInstance().listarLocacoes();
+        return cadastroLocacao.listarLocacoes();
     }
 
-    @GetMapping("/consultacliente")
+        @GetMapping("/consultacliente")
     private Cliente getConsultaCliente(@RequestParam(value = "codigo")int codigo){
-        return CadastroCliente.getInstance().getCliente(codigo);
+        return cadastroCliente.getCliente(codigo);
     }
 
     @PostMapping("/validaautomovel")
     private boolean validaAutomovel(@RequestBody int idAutomovel){
-        return CadastroAutomovel.getInstance().isDisponivelPorId(idAutomovel);
-    }
-
-    @AllArgsConstructor
-    private static class LocacaoRequest {
-        private int idLocacao;
-        private int idAutomovel;
-        private int idCliente;
-        private String dataInicial;
-
-        public Locacao toLocacao() {
-            CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
-            CadastroCliente cadastroCliente = CadastroCliente.getInstance();
-
-            Automovel automovel = cadastroAutomovel.getAutomovel(idAutomovel);
-            Cliente cliente = cadastroCliente.getCliente(idCliente);
-
-            return new Locacao(idLocacao, Date.from(Instant.parse(dataInicial)), null, cliente, automovel);
-        }
+        return cadastroAutomovel.isDisponivelPorId(idAutomovel);
     }
 
     @PostMapping("/atendimento/cadlocacao")
     private boolean cadastraLocacao(@RequestBody LocacaoRequest locacaoRequest) {
-        CadastroLocacao cadastroLocacao = CadastroLocacao.getInstance();
-
-        return cadastroLocacao.cadastrarLocacao(locacaoRequest.toLocacao());
+        return cadastroLocacao.cadastrarLocacao(locacaoRequest.toLocacao(cadastroAutomovel, cadastroCliente));
     }
 
     @PostMapping("/atendimento/atualizaautomovel/{id}/estado/{status}")
     private Automovel atualizaAutomovel(@PathVariable int id, @PathVariable boolean status) {
-        CadastroAutomovel cadastroAutomovel = CadastroAutomovel.getInstance();
         Automovel automovel = cadastroAutomovel.getAutomovel(id);
 
         if (automovel == null) return null; // Retorna null se o automóvel não for encontrado
@@ -84,6 +72,6 @@ public class ACMERentController {
 
     @PostMapping("/atendimento/finalizalocacao")
     private boolean finalizaLocacao(@RequestBody int id){
-        return CadastroLocacao.getInstance().finalizarLocacao(id);
+        return cadastroLocacao.finalizarLocacao(id);
     }
 }

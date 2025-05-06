@@ -10,19 +10,10 @@ import java.util.List;
 public class CadastroAutomovel {
     private List<Automovel> automoveis;
     private int nextId;
-    private static CadastroAutomovel instance;
 
     private CadastroAutomovel() {
         this.automoveis = new ArrayList<>();
         this.nextId = 1; // ID inicial
-    }
-
-    // Singleton
-    public static CadastroAutomovel getInstance() {
-        if (instance == null) {
-            instance = new CadastroAutomovel();
-        }
-        return instance;
     }
 
     public Automovel cadastrarAutomovel(String placa, int ano, double valorDiaria) {
