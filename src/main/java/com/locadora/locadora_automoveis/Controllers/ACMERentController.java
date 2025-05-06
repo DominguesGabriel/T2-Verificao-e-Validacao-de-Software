@@ -57,12 +57,14 @@ public class ACMERentController {
     }
 
     @PostMapping("/atendimento/atualizaautomovel/{id}/estado/{status}")
-    private Automovel atualizaAutomovel(@PathVariable int id, @PathVariable boolean status) {
+    private Automovel atualizaAutomovel(@PathVariable int id, @PathVariable String status) {
         Automovel automovel = cadastroAutomovel.getAutomovel(id);
 
         if (automovel == null) return null; // Retorna null se o automóvel não for encontrado
         
-        automovel.setDisponivel(status);
+        boolean realStatus = status.equalsIgnoreCase("disponivel") || status.equalsIgnoreCase("true");
+
+        automovel.setDisponivel(realStatus);
 
         return automovel;
     }
