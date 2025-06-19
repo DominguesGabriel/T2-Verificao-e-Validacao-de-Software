@@ -33,16 +33,12 @@ public class CadastroAutomovel {
         return new ArrayList<>(automoveis); // Retorna uma cópia da lista para evitar modificações externas
     }
 
-    public boolean apagarAutomovel(int id) {
-        return automoveis.removeIf(automovel -> automovel.getId() == id);
-    }
 
-    public boolean isDisponivelPorId(int id){
-        for(Automovel automovel: automoveis){
-            if(automovel.getId() == id){
-                return true;
+    public boolean isDisponivelPorId(int id) {
+        for (Automovel automovel : automoveis)
+            if (automovel.getId() == id) {
+                return automovel.isDisponivel();
             }
-        }
         return false;
     }
 }
