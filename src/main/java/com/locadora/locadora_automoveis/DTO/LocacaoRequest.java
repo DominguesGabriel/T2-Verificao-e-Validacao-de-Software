@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 
 @AllArgsConstructor
 public class LocacaoRequest {
