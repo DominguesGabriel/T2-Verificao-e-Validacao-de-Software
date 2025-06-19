@@ -1,26 +1,40 @@
 package com.locadora.locadora_automoveis.Models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Locacao {
     private int id;
-    private Date startData;
-    private Date endDate;
+    private LocalDate startData;
+    private LocalDate endDate;
     private Cliente cliente;
     private Automovel automovel;
     private double valorTotal;
+    private int quantDias;
 
-    public int getDias() {
-        if (endDate == null) {
-            return -1; // Se a locação não foi finalizada, retorna 0 dias
+    public Locacao(int id,LocalDate startData,Cliente cliente, Automovel automovel, double valorTotal, int quantDias) {
+        this.id = id;
+        this.startData = startData;
+        this.endDate = getEndDate();
+        this.cliente = cliente;
+        this.automovel = automovel;
+        this.valorTotal = valorTotal;
+        this.quantDias = quantDias;
+    }
+
+    public double calcularValor() {
+        double valor = quantDias * automovel.getValorDiaria();
+        if (quantDias > 7) {
+            valor *= 0.95;
         }
+        return valor;
+    }
 
-        long diff = endDate.getTime() - startData.getTime();
-        return (int) (diff / (1000 * 60 * 60 * 24));
+    public LocalDate getEndDate(){
+        return startData.plusDays(quantDias);
     }
 }
