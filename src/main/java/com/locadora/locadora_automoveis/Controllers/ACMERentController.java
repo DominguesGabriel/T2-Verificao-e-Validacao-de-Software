@@ -41,7 +41,7 @@ public class ACMERentController {
         return cadastroLocacao.listarLocacoes();
     }
 
-        @GetMapping("/consultacliente")
+    @GetMapping("/consultacliente")
     private Cliente getConsultaCliente(@RequestParam(value = "codigo")int codigo){
         return cadastroCliente.getCliente(codigo);
     }
@@ -53,7 +53,8 @@ public class ACMERentController {
 
     @PostMapping("/atendimento/cadlocacao")
     private boolean cadastraLocacao(@RequestBody LocacaoRequest locacaoRequest) {
-        return cadastroLocacao.cadastrarLocacao(locacaoRequest.toLocacao(cadastroAutomovel, cadastroCliente));
+        Locacao locacao = locacaoRequest.toLocacao(cadastroAutomovel,cadastroCliente);
+        return cadastroLocacao.cadastraLocacao(locacao.getStartData(),locacao.getQuantDias(),locacao.getCliente(),locacao.getAutomovel());
     }
 
     @PostMapping("/atendimento/atualizaautomovel/{id}/estado/{status}")
