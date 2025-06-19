@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -25,10 +26,16 @@ class CadastroLocacaoTest {
     private Locacao locacao;
 
     @Mock
+    private Locacao locacao2;
+
+    @Mock
     private Automovel automovel;
 
     @Mock
     private Cliente cliente;
+
+    @Mock
+    private Cliente cliente2;
 
     @Nested
     class CalculaValorLocacaoTest{
@@ -83,6 +90,31 @@ class CadastroLocacaoTest {
 
             assertTrue(output);
         }
+   }
+
+   @Test
+   void listarLocacoes(){
+    when(locacao.getCliente()).thenReturn(cliente);
+    when(locacao2.getCliente()).thenReturn(cliente);
+
+    when(cliente.getNome()).thenReturn("Luiz");
+    when(cliente2.getNome()).thenReturn("Cleber");
+
+    when(locacao.getStartData()).thenReturn(LocalDate.now());
+
+    cadastroLocacao.cadastraLocacao(locacao.getStartData(), 1, cliente, automovel);
+    cadastroLocacao.cadastraLocacao(locacao2.getStartData(), 1, cliente, automovel);
+
+    List<Locacao> listaLocacao = cadastroLocacao.listarLocacoes();
+
+    assertTrue(listaLocacao.stream().anyMatch(l -> "Luiz".equals(l.getCliente())));
+    assertTrue(listaLocacao.stream().anyMatch(l -> "Cleber".equals(l.getCliente())));
+
+    listaLocacao.clear();
+
+    List<Locacao> novaListaLocacoes = cadastroLocacao.listarLocacoes();
+    assertFalse(novaListaLocacoes.isEmpty());
+    assertEquals(2,novaListaLocacoes.size());
    }
 
 
