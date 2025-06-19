@@ -1,6 +1,8 @@
 package com.locadora.locadora_automoveis.Services.InicializacaoDados;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +28,20 @@ public class InicializaLocacao implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        cadastroLocacao.cadastrarLocacao(
-            Date.from(Instant.ofEpochSecond(352398573)),
-            cadastroCliente.getCliente(1),
-            cadastroAutomovel.getAutomovel(1)
-        ).setEndDate(Date.from(Instant.ofEpochSecond(352498573)));
 
-        cadastroLocacao.cadastrarLocacao(
-            Date.from(Instant.ofEpochSecond(23423443)),
-            cadastroCliente.getCliente(2),
-            cadastroAutomovel.getAutomovel(2)
-        ).setEndDate(Date.from(Instant.ofEpochSecond(33424443)));
+        cadastroLocacao.cadastraLocacao(
+                Instant.ofEpochSecond(352398573).atZone(ZoneId.systemDefault()).toLocalDate(),
+                7,
+                cadastroCliente.getCliente(1),
+                cadastroAutomovel.getAutomovel(1)
+        );
+
+        cadastroLocacao.cadastraLocacao(
+                Instant.ofEpochSecond(352398573).atZone(ZoneId.systemDefault()).toLocalDate(),
+                7,
+                cadastroCliente.getCliente(2),
+                cadastroAutomovel.getAutomovel(2)
+        );
 
         System.out.println("cadastro de locação inicializado com sucesso!");
     }
