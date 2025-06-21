@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.print.attribute.standard.Media;
-
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -103,12 +101,13 @@ public class ACMERentControllerIT {
 
     @Test
     void TI06_deveCadastrarLocacao() throws Exception {
-        String locacaoValida = "{\n" +
-                "    \"idLocacao\": 3,\n" +
-                "    \"idAutomovel\": 3,\n" +
-                "    \"idCliente\": 3,\n" +
-                "    \"dataInicial\": \"2024-05-05T10:15:30Z\"\n" +
-                "}";
+        String locacaoValida = """
+                {
+                    "idLocacao": 3,
+                    "idAutomovel": 3,
+                    "idCliente": 3,
+                    "dataInicial": "2024-05-05T10:15:30Z"
+                }""";
 
         mockMvc.perform(post("/acmerent/atendimento/cadlocacao")
                 .content(locacaoValida)
@@ -119,12 +118,13 @@ public class ACMERentControllerIT {
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
-        String locacaoInvalida = "{\n" +
-                "    \"idLocacao\": 1,\n" +
-                "    \"idAutomovel\": 1,\n" +
-                "    \"idCliente\": 1,\n" +
-                "    \"dataInicial\": \"1981-03-02T10:15:30Z\"\n" +
-                "}";
+        String locacaoInvalida = """
+                {
+                    "idLocacao": 1,
+                    "idAutomovel": 1,
+                    "idCliente": 1,
+                    "dataInicial": "1981-03-02T10:15:30Z"
+                }""";
 
         mockMvc.perform(post("/acmerent/atendimento/cadlocacao")
                 .content(locacaoInvalida)
