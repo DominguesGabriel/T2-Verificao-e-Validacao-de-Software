@@ -51,7 +51,8 @@ public class ACMERentControllerSystemTest {
                 getBaseUrl() + "/acmerent/listaclientes",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Cliente>>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         assertEquals(HttpStatus.OK, listaClientes.getStatusCode());
@@ -68,7 +69,8 @@ public class ACMERentControllerSystemTest {
                 getBaseUrl() + "/acmerent/consultacliente?codigo="+codigoCliente,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<Cliente>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         assertEquals(HttpStatus.OK,clienteConsultado.getStatusCode());
@@ -82,7 +84,8 @@ public class ACMERentControllerSystemTest {
                 getBaseUrl() + "/acmerent/listaautomoveis",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Automovel>>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         assertEquals(HttpStatus.OK,listaAutomoveis.getStatusCode());
@@ -119,7 +122,8 @@ public class ACMERentControllerSystemTest {
                 getBaseUrl() + "/acmerent/atendimento/atualizaautomovel/" + automovel.getId() + "/estado/" + true,
                 HttpMethod.POST,
                 null,
-                new ParameterizedTypeReference<Automovel>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         assertEquals(HttpStatus.OK,automovelAtualizado.getStatusCode());
@@ -155,7 +159,8 @@ public class ACMERentControllerSystemTest {
                 getBaseUrl() + "/acmerent/listalocacoes",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Locacao>>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         assertEquals(HttpStatus.OK, listaLocacao.getStatusCode());
