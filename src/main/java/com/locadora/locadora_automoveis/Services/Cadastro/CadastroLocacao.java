@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class CadastroLocacao {
-    private List<Locacao> locacoes;
+    private final List<Locacao> locacoes;
     private int nextId;
 
     private CadastroLocacao() {
@@ -36,7 +36,7 @@ public class CadastroLocacao {
     }
 
     public List<Locacao> listarLocacoes() {
-        return new ArrayList<>(locacoes);
+        return locacoes;
     }
 
     public boolean finalizaLocacao(int id) {

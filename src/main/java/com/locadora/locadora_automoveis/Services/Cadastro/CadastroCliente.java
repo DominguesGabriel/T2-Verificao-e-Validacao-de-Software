@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class CadastroCliente {
-    private List<Cliente> clientes;
+    private final List<Cliente> clientes;
     private int nextId;
 
     private CadastroCliente() {
@@ -31,7 +31,7 @@ public class CadastroCliente {
     }
 
     public List<Cliente> listarClientes() {
-        return new ArrayList<>(clientes); // Retorna uma cópia da lista para evitar modificações externas
+        return clientes; // Retorna uma cópia da lista para evitar modificações externas
     }
 
     public boolean apagarCliente(int id) {

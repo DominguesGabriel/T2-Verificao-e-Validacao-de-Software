@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class CadastroAutomovel {
-    private List<Automovel> automoveis;
+    private final List<Automovel> automoveis;
     private int nextId;
 
     private CadastroAutomovel() {
@@ -30,7 +30,7 @@ public class CadastroAutomovel {
     }
 
     public List<Automovel> listarAutomoveis() {
-        return new ArrayList<>(automoveis); // Retorna uma cópia da lista para evitar modificações externas
+        return automoveis; // Retorna uma cópia da lista para evitar modificações externas
     }
 
 
