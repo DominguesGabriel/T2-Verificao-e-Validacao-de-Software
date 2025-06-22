@@ -7,11 +7,13 @@ import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroCliente;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+@Data
 @AllArgsConstructor
 public class LocacaoRequest {
     private int idLocacao;
