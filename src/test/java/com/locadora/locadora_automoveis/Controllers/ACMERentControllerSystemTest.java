@@ -129,7 +129,7 @@ public class ACMERentControllerSystemTest {
         //6 - Cadastra Locacao
 
         LocacaoRequest locacaoRequest = new LocacaoRequest(
-                5,
+                3,
                 automovel.getId(),
                 codigoCliente,
                 Instant.ofEpochSecond(352398573).atZone(ZoneId.systemDefault()).toLocalDate().toString()+"T10:15:30Z",
@@ -151,20 +151,33 @@ public class ACMERentControllerSystemTest {
 
         //7 - Lista Locacoes
 
-//        ResponseEntity<List<Locacao>> listaLocacao = restTemplate.exchange(
-//                getBaseUrl() + "/acmerent/listalocacoes",
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<Locacao>>() {}
-//        );
-//
-//        assertEquals(HttpStatus.OK, listaLocacao.getStatusCode());
-//        assertNotNull(listaLocacao.getBody());
-//        assertFalse(listaLocacao.getBody().isEmpty());
-//        assertEquals(4,listaLocacao.getBody().size());
-//
-//        assertEquals(locacaoRequest.toLocacao(cadastroAutomovel,cadastroCliente), listaLocacao.getBody().get(3));
+        ResponseEntity<List<Locacao>> listaLocacao = restTemplate.exchange(
+                getBaseUrl() + "/acmerent/listalocacoes",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Locacao>>() {}
+        );
+
+        assertEquals(HttpStatus.OK, listaLocacao.getStatusCode());
+        assertNotNull(listaLocacao.getBody());
+        assertFalse(listaLocacao.getBody().isEmpty());
+        assertEquals(3,listaLocacao.getBody().size());
+
+        assertEquals(locacaoRequest.toLocacao(cadastroAutomovel,cadastroCliente).getId(), listaLocacao.getBody().get(2).getId());
 
         //8 - Finaliza Locacao
+
+        HttpEntity<Integer> requestFinalizaLocacao = new HttpEntity<>(locacaoRequest.getIdLocacao(), headers);
+
+        ResponseEntity<Boolean> finalizaLocacao = restTemplate.exchange(
+                getBaseUrl() +"/acmerent/atendimento/finalizalocacao",
+                HttpMethod.POST,
+                requestFinalizaLocacao,
+                Boolean.class
+        );
+
+        assertEquals(HttpStatus.OK,finalizaLocacao.getStatusCode());
+        assertNotNull(finalizaLocacao.getBody());
+        assertTrue(finalizaLocacao.getBody());
     }
 }
