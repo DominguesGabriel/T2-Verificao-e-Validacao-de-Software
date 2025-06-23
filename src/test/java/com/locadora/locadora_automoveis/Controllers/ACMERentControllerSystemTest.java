@@ -6,9 +6,7 @@ import com.locadora.locadora_automoveis.Models.Cliente;
 import com.locadora.locadora_automoveis.Models.Locacao;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroAutomovel;
 import com.locadora.locadora_automoveis.Services.Cadastro.CadastroCliente;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,7 +21,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ACMERentControllerSystemTest {
 
     @Autowired
@@ -184,5 +181,77 @@ public class ACMERentControllerSystemTest {
         assertEquals(HttpStatus.OK,finalizaLocacao.getStatusCode());
         assertNotNull(finalizaLocacao.getBody());
         assertTrue(finalizaLocacao.getBody());
+    }
+
+    @Test
+    void deveCadastrarLocacaoComVeiculoIndisponivel(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        LocacaoRequest locacaoRequest = new LocacaoRequest(
+                3,
+                2,
+                1,
+                Instant.ofEpochSecond(352398573).atZone(ZoneId.systemDefault()).toLocalDate().toString()+"T10:15:30Z",
+                8);
+
+        HttpEntity<LocacaoRequest> requestCadastroLocacao = new HttpEntity<>(locacaoRequest,headers);
+
+        ResponseEntity<Boolean> cadastraLocacao = restTemplate.exchange(
+                getBaseUrl() + "/acmerent/atendimento/cadlocacao",
+                HttpMethod.POST,
+                requestCadastroLocacao,
+                Boolean.class
+
+        );
+
+        assertEquals(HttpStatus.OK,cadastraLocacao.getStatusCode());
+        assertNotNull(cadastraLocacao.getBody());
+        assertFalse(cadastraLocacao.getBody());
+    }
+
+    @Test
+    void deveCalculaValorLocacaoComDesconto(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        LocacaoRequest locacaoRequest = new LocacaoRequest(
+                3,
+                4,
+                2,
+                Instant.ofEpochSecond(352398573).atZone(ZoneId.systemDefault()).toLocalDate().toString()+"T10:15:30Z",
+                8);
+
+        HttpEntity<LocacaoRequest> requestCadastroLocacao = new HttpEntity<>(locacaoRequest,headers);
+
+        ResponseEntity<Boolean> cadastraLocacao = restTemplate.exchange(
+                getBaseUrl() + "/acmerent/atendimento/cadlocacao",
+                HttpMethod.POST,
+                requestCadastroLocacao,
+                Boolean.class
+
+        );
+
+        assertEquals(HttpStatus.OK,cadastraLocacao.getStatusCode());
+        assertNotNull(cadastraLocacao.getBody());
+
+        ResponseEntity<List<Locacao>> listaLocacao = restTemplate.exchange(
+                getBaseUrl() + "/acmerent/listalocacoes",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+
+        assertEquals(HttpStatus.OK, listaLocacao.getStatusCode());
+        assertNotNull(listaLocacao.getBody());
+        assertFalse(listaLocacao.getBody().isEmpty());
+
+        Locacao locacaoComDesconto = listaLocacao.getBody().getLast();
+
+        assertEquals(988, locacaoComDesconto.calcularValor());
+
     }
 }
