@@ -3,7 +3,6 @@ package com.locadora.locadora_automoveis.Controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,7 +19,6 @@ public class ACMERentControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private MockMvcWebClientAutoConfiguration mockMvcWebClientAutoConfiguration;
 
     @Test
     public void TI01_deveRetornarListaComPeloMenos3Clientes() throws Exception {
@@ -83,7 +81,7 @@ public class ACMERentControllerIntegrationTest {
     void TI05_deveValidarAutomovelPorStatus() throws Exception {
         //Teste com o automovel disponível
         mockMvc.perform(post("/acmerent/validaautomovel")
-                        .content("3")
+                        .content("9")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -91,7 +89,7 @@ public class ACMERentControllerIntegrationTest {
                 .andExpect(content().string("true"));
 
         mockMvc.perform(post("/acmerent/validaautomovel")
-                        .content("1")
+                        .content("2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
